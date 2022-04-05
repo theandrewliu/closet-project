@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <main>
+        <div>
+            <h1>My Wardrobe</h1>
+            {% if section_list %}
+                <table>
+                    {% for section in section_list %}
+                    <thead>
+                        <th>{{ section.name }}</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            {% if section.clothe.all %}
+                                {% for clothe in section.clothe.all %} 
+                                    <td>{{ clothe.name }}</td> 
+                                {% endfor %}
+                            {% endif %}
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>Where are your clothes?</p>
+            {% endif %}
+        </div>
+    </main>
+{% endblock content %}
