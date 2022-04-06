@@ -15,20 +15,49 @@
                     <tbody>
                         {% for clothe in clothe_list %}
                             <tr>
-                                <td>{{ clothe.name }}</td>
-                                {% if clothe.image %}
-                                <td><img src="{{ clothe.image }}" class="clothe-image"></td>
+                                {% if clothe.image and not clothe.is_laundry %}
+                                <td class="container">
+                                    <form method ="post" action ="{% url 'complete_clothe' clothe.id %}">
+                                        {% csrf_token %}
+                                        <input type="image" src="{{ clothe.image }}" class="clothe-image" value="True" alt = "Sumbit">
+                                        <input type="hidden" name="is_laundry" value = "True">
+                                        <div class="overlay">
+                                            <div class="text">{{ clothe.name }}</div>
+                                        </div> 
+                                    </form>
+                                </td>
+
+                                {% elif clothe.image and clothe.is_laundry%}
+                                    <td class="container">
+                                        <form method ="post" action ="{% url 'complete_clothe' clothe.id %}">
+                                            {% csrf_token %}
+                                            <input type="image" src="{{ clothe.image }}" class="clothe-image-dark" value="False" alt = "Sumbit">
+                                            <input type="hidden" name="is_laundry" value = "False">
+                                            {% comment %} <img src="{{ clothe.image }}" class="clothe-image-dark"> {% endcomment %}
+                                            <div class="text">In Laundry</div>
+                                            <div class="overlay">
+                                                <div class="text">{{ clothe.name }}</div>
+                                            </div>
+                                        </form> 
+                                    </td>
                                 {% endif %}
-                                <td>
+                                {% comment %} <td>
                                     {% if not clothe.is_laundry %}
                                         <form method = "post" action = "{% url 'complete_clothe' clothe.id %}">
                                             {% csrf_token %}
-                                            <input type="hidden" name="is_completed" value = "True">
+                                            <input type="hidden" name="is_laundry" value = "True">
                                             <button>In Laundry</button>
                                         </form>
                                     {% endif %}
+                                    {% if clothe.is_laundry %}
+                                        <form method = "post" action = "{% url 'complete_clothe' clothe.id %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="is_laundry" value = "False">
+                                            <button>Available</button>
+                                        </form>
+                                    {% endif %}
                                     {{ clothe.is_laundry|yesno:"Yes," }}
-                                </td>
+                                </td> {% endcomment %}
                             </tr>
                         {% endfor %}
                     </tbody>

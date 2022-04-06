@@ -14,8 +14,43 @@
                     <tbody>
                         <tr>
                             {% if section.clothe.all %}
-                                {% for clothe in section.clothe.all %} 
-                                    <td>{{ clothe.name }}</td> 
+                                {% for clothe in section.clothe.all %}
+                                <tr>
+                                    {% if clothe.image and not clothe.is_laundry %}
+                                    <td class="container">
+                                        <form method ="post" action ="{% url 'complete_clothe' clothe.id %}">
+                                            {% csrf_token %}
+                                            <input type="image" src="{{ clothe.image }}" class="clothe-image" value="True" alt = "Sumbit">
+                                            <input type="hidden" name="is_laundry" value = "True">
+                                            <div class="overlay">
+                                                <div class="text">{{ clothe.name }}</div>
+                                            </div> 
+                                        </form>
+                                    </td>
+    
+                                    {% elif clothe.image and clothe.is_laundry%}
+                                        <td class="container">
+                                            <form method ="post" action ="{% url 'complete_clothe' clothe.id %}">
+                                                {% csrf_token %}
+                                                <input type="image" src="{{ clothe.image }}" class="clothe-image-dark" value="False" alt = "Sumbit">
+                                                <input type="hidden" name="is_laundry" value = "False">
+                                                {% comment %} <img src="{{ clothe.image }}" class="clothe-image-dark"> {% endcomment %}
+                                                <div class="text">In Laundry</div>
+                                                <div class="overlay">
+                                                    <div class="text">{{ clothe.name }}</div>
+                                                </div>
+                                            </form> 
+                                        </td>
+                                    {% endif %}
+                                    </tr>
+                                    {% comment %} {% if not clothe.is_laundry %} 
+                                    <td class="container">
+                                        <img src="{{ clothe.image }}" class="clothe-image">
+                                        <div class="overlay">
+                                            <div class="text">{{ clothe.name }}</div>
+                                        </div>
+                                    </td>
+                                    {% endif %}  {% endcomment %}
                                 {% endfor %}
                             {% endif %}
                         </tr>

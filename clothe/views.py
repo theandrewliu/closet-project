@@ -29,4 +29,4 @@ class ClotheUpdateView(LoginRequiredMixin, UpdateView):
     fields = ["is_laundry"]
 
     def get_success_url(self):
-        return reverse_lazy("show_my_clothe")
+        return reverse_lazy("home")
