@@ -3,8 +3,11 @@
 
 {% block content %}
     <main>
+        <h1>My Wardrobe</h1>
         <div>
-            <h1>My Wardrobe</h1>
+            <p><a href="{% url 'create_clothe' %}">Add Item</a></p>
+        </div>
+        <div>
             {% if section_list %}
                 <table>
                     {% for section in section_list %}

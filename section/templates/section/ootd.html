@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <main>
+        <h1>Outfit of The Day</h1>
+        <div>
+            {% if section_list %}
+                <table>
+                    {% for section in section_list %}
+                    <thead>
+                        <th>{{ section.name }}</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            {% if section.id == 1 %}
+                            <td class="container">
+                                <img src="{{ top.image }}" class="clothe-image">
+                                <div class="overlay">
+                                    <div class="text">{{ top.name }}</div>
+                                </div> 
+                            </td>
+                            {% elif section.id == 2 %}
+                            <td class="container">
+                                <img src="{{ pant.image }}" class="clothe-image">
+                                <div class="overlay">
+                                    <div class="text">{{ pant.name }}</div>
+                                </div> 
+                            </td>
+                            {% elif section.id == 3 %}
+                            <td class="container">
+                                <img src="{{ shoe.image }}" class="clothe-image">
+                                <div class="overlay">
+                                    <div class="text">{{ shoe.name }}</div>
+                                </div> 
+                            </td>
+                            {% endif %}
+
+                            {% comment %} {% if section.clothe.all %}
+                                {% for clothe in section.clothe.all %}
+                                <tr>
+                                    {% if clothe.image and not clothe.is_laundry %}
+                                    <td class="container">
+                                            <img src="{{ clothe.image }}" class="clothe-image">
+                                            <div class="overlay">
+                                                <div class="text">{{ clothe.name }}</div>
+                                            </div> 
+                                    </td>
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                            {% endif %} {% endcomment %}
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <p>Where are your clothes?</p>
+            {% endif %}
+        </div>
+    </main>
+{% endblock content %}

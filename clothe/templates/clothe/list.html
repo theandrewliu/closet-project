@@ -2,15 +2,13 @@
 
 {% block content %}
     <main>
+        <p>{{ section.clothe.all }} </p>
         <div>
             <h1>My Clothes</h1>
             {% if clothe_list %}
                 <table>
                     <thead>
-                        {% comment %} <th>Name</th>
-                        <th>Start date</th>
-                        <th>End date</th>
-                        <th>Is completed</th> {% endcomment %}
+
                     </thead>
                     <tbody>
                         {% for clothe in clothe_list %}
@@ -41,23 +39,6 @@
                                         </form> 
                                     </td>
                                 {% endif %}
-                                {% comment %} <td>
-                                    {% if not clothe.is_laundry %}
-                                        <form method = "post" action = "{% url 'complete_clothe' clothe.id %}">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="is_laundry" value = "True">
-                                            <button>In Laundry</button>
-                                        </form>
-                                    {% endif %}
-                                    {% if clothe.is_laundry %}
-                                        <form method = "post" action = "{% url 'complete_clothe' clothe.id %}">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="is_laundry" value = "False">
-                                            <button>Available</button>
-                                        </form>
-                                    {% endif %}
-                                    {{ clothe.is_laundry|yesno:"Yes," }}
-                                </td> {% endcomment %}
                             </tr>
                         {% endfor %}
                     </tbody>
