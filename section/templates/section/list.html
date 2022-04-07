@@ -3,7 +3,7 @@
 
 {% block content %}
     <main>
-        <h1>My Wardrobe</h1>
+        <h1 class="retro">My Wardrobe</h1>
         <div>
             <p><a href="{% url 'create_clothe' %}">Add Item</a></p>
         </div>
@@ -12,7 +12,7 @@
                 <table>
                     {% for section in section_list %}
                     <thead>
-                        <th>{{ section.name }}</th>
+                        <th class="retro">{{ section.name }}</th>
                     </thead>
                     <tbody>
                         <tr>

@@ -37,9 +37,6 @@ class OutfitListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        items = list(Clothe.objects.all())
-        random_item = random.choice(items)
-        context['topper']= random_item.image
 
         # nulist = []
         # for clothing in Section.objects.all():
